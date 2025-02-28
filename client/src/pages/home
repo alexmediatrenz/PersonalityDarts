@@ -1,13 +1,59 @@
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import App from "./App";
-import "./index.css";
+import { Link } from "wouter";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Brain, Stars, Heart } from "lucide-react";
 
-const rootElement = document.getElementById("root");
-if (!rootElement) throw new Error("Failed to find the root element");
+export default function Home() {
+  const features = [
+    {
+      icon: Brain,
+      title: "Personality Quizzes",
+      description: "Discover your true self through our science-based assessments",
+      href: "/quizzes"
+    },
+    {
+      icon: Stars,
+      title: "Zodiac Dart Game",
+      description: "Test your cosmic luck with our interactive zodiac wheel",
+      href: "/zodiac-game"
+    },
+    {
+      icon: Heart,
+      title: "Match Generator",
+      description: "Find your perfect fictional match based on astrology",
+      href: "/match-generator"
+    }
+  ];
 
-createRoot(rootElement).render(
-  <StrictMode>
-    <App />
-  </StrictMode>
-);
+  return (
+    <div className="max-w-6xl mx-auto">
+      <section className="text-center py-16">
+        <h1 className="text-4xl font-bold mb-6">
+          Welcome to AllthingSonal
+        </h1>
+        <p className="text-xl text-muted-foreground mb-12 max-w-2xl mx-auto">
+          Explore personality insights, play with zodiac signs, and find your perfect match through our interactive platform.
+        </p>
+      </section>
+
+      <section className="grid md:grid-cols-3 gap-6 mb-16">
+        {features.map(({ icon: Icon, title, description, href }) => (
+          <Card key={href} className="hover:shadow-lg transition-shadow">
+            <CardHeader>
+              <Icon className="h-8 w-8 mb-2 text-primary" />
+              <CardTitle>{title}</CardTitle>
+              <CardDescription>{description}</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Link href={href}>
+                <Button className="w-full">
+                  Try Now
+                </Button>
+              </Link>
+            </CardContent>
+          </Card>
+        ))}
+      </section>
+    </div>
+  );
+}
